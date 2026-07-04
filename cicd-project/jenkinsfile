@@ -1,0 +1,29 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Git Pull') {
+            steps {
+                git 'repo-url'
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                sh 'docker build -t kapildhokane/grovina-project .'
+            }
+        }
+
+        stage('Push Image') {
+            steps {
+                sh 'docker push  kapildhokane/grovina-project'
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                sh 'kubectl apply -f k8s/'
+            }
+        }
+    }
+}

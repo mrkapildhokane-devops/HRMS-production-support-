@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hrms-app
+  namespace: hrms
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: hrms
+  template:
+    metadata:
+      labels:
+        app: hrms
+    spec:
+      containers:
+      - name: app
+        image: nginx
+        ports:
+        - containerPort: 80
